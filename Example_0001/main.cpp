@@ -490,9 +490,29 @@ int main(int argc,char **argv)
                 cout.flush();
                 break;
 
+            case QSysInfo::MV_LEOPARD:
 
+                cout<<"\tCurrent platform Mac OS X 10.5 Leopard"<<endl<<endl;
+                cout.flush();
+                break;
 
+            case QSysInfo::MV_SNOWLEOPARD:
 
+                cout<<"\tCurrent platform Mac OS X 10.6 Snow Leopard"<<endl<<endl;
+                cout.flush();
+                break;
+
+            case QSysInfo::MV_LION:
+
+                cout<<"\tCurrent platform Mac OS X 10.7 Lion"<<endl<<endl;
+                cout.flush();
+                break;
+
+            case QSysInfo::MV_MOUNTAINLION:
+
+                cout<<"\tCurrent platform Mac OS X 10.8 Mountain Lion"<<endl<<endl;
+                cout.flush();
+                break;
 
             case QSysInfo::MV_MAVERICKS:
 
@@ -524,6 +544,65 @@ int main(int argc,char **argv)
                 cout.flush();
                 break;
 
+            case QSysInfo::MV_IOS_5_0:
+
+                cout<<"\tCurrent platform: iOS 5.0"<<endl<<endl;
+                cout.flush();
+                break;
+
+            case QSysInfo::MV_IOS_5_1:
+
+                cout<<"\tCurrent platform: iOS 5.1"<<endl<<endl;
+                cout.flush();
+                break;
+
+            case QSysInfo::MV_IOS_6_0:
+
+                cout<<"\tCurrent platform: iOS 6.0"<<endl<<endl;
+                cout.flush();
+                break;
+
+            case QSysInfo::MV_IOS_6_1:
+
+                cout<<"\tCurrent platform: iOS 6.1"<<endl<<endl;
+                cout.flush();
+                break;
+
+            case QSysInfo::MV_IOS_7_0:
+
+                cout<<"\tCurrent platform: iOS 7.0"<<endl<<endl;
+                cout.flush();
+                break;
+
+            case QSysInfo::MV_IOS_7_1:
+
+                cout<<"\tCurrent platform: iOS 7.1"<<endl<<endl;
+                cout.flush();
+                break;
+
+            case QSysInfo::MV_IOS_8_0:
+
+                cout<<"\tCurrent platform: iOS 8.0"<<endl<<endl;
+                cout.flush();
+                break;
+
+            case QSysInfo::MV_IOS_8_1:
+
+                cout<<"\tCurrent platform: iOS 8.1"<<endl<<endl;
+                cout.flush();
+                break;
+
+            case QSysInfo::MV_IOS_8_2:
+
+                cout<<"\tCurrent platform: iOS 8.2"<<endl<<endl;
+                cout.flush();
+                break;
+
+        case QSysInfo::MV_IOS_8_3:
+
+                cout<<"\tCurrent platform: iOS 8.3"<<endl<<endl;
+                cout.flush();
+                break;
 
             case QSysInfo::MV_IOS_8_4:
 
@@ -543,36 +622,6 @@ int main(int argc,char **argv)
     cout<<"\tCurrent machine's host name: "<<QSysInfo::machineHostName().toStdString()<<endl<<endl;
     cout<<"\tProduct name of the operating system this application is running in: "<<QSysInfo::productType().toStdString()<<endl<<endl;
     cout<<"\tProduct version of the operating system this application is running in (string form): "<<QSysInfo::productVersion().toStdString()<<endl<<endl;
-
-    /*
-    QSysInfo::MV_10_5	Q_MV_OSX( 10, 5 )	Mac OS X 10.5 (unsupported)
-    QSysInfo::MV_10_6	Q_MV_OSX( 10, 6 )	Mac OS X 10.6
-    QSysInfo::MV_10_7	Q_MV_OSX( 10, 7 )	Mac OS X 10.7
-    QSysInfo::MV_10_8	Q_MV_OSX( 10, 8 )	OS X 10.8
-
-
-    QSysInfo::MV_LEOPARD	MV_10_5	Apple codename for MV_10_5
-    QSysInfo::MV_SNOWLEOPARD	MV_10_6	Apple codename for MV_10_6
-    QSysInfo::MV_LION	MV_10_7	Apple codename for MV_10_7
-    QSysInfo::MV_MOUNTAINLION	MV_10_8	Apple codename for MV_10_8
-
-
-
-
-        ?	iOS 4.3
-    QSysInfo::MV_IOS_5_0	?	iOS 5.0
-    QSysInfo::MV_IOS_5_1	?	iOS 5.1
-    QSysInfo::MV_IOS_6_0	?	iOS 6.0
-    QSysInfo::MV_IOS_6_1	?	iOS 6.1
-    QSysInfo::MV_IOS_7_0	?	iOS 7.0
-    QSysInfo::MV_IOS_7_1	?	iOS 7.1
-    QSysInfo::MV_IOS_8_0	?	iOS 8.0
-    QSysInfo::MV_IOS_8_1	?	iOS 8.1
-    QSysInfo::MV_IOS_8_2	?	iOS 8.2
-    QSysInfo::MV_IOS_8_3	?	iOS 8.3
-
-
-*/
 
     /* If we arrive here, all is ok! */
     return EXIT_SUCCESS;
