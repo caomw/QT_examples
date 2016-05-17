@@ -13,8 +13,19 @@
 #include <iostream>
 using namespace std;
 
-MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) { cout<<"Costruttore iniziale"; cout.flush(); }
+MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
+{
+    this->setToolTip(QString("tooltip is not initialized"));
+    this->setToolTip(QString("tooltip is not initialized"));
+    this->setToolTipDuration(2000);
+}
 
-MainWindow::MainWindow(const QString &title,QWidget *parent) : QMainWindow(parent) { this->setWindowTitle(title); }
+MainWindow::MainWindow(const QString &title,QWidget *parent) : QMainWindow(parent)
+{
+    this->setWindowTitle(title);
+    this->setToolTip(title);
+    this->setToolTipDuration(2000);
+}
 
-MainWindow::~MainWindow() { cout<<"Distruttore finale"; cout.flush(); }
+MainWindow::~MainWindow() { ; }
+
