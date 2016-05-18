@@ -1,9 +1,8 @@
-#include <stdio.h>
+	#include <stdio.h>
 
-int main(void) {
+	int main(void) {
     
-    for (int i=1; i<=10; i++) {
-        printf("Bottle %d\n", i);
-    }
-}
+    	for (int i=1; i<=10; i++) {
+        	printf("Bottle %d\n", i); }
+	}
 

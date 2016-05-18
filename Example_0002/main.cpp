@@ -13,6 +13,7 @@
 #include<string>
 #include<QString>
 #include <QTextStream>
+#include <QFile>
 #include<iostream>
 using namespace std;
 
@@ -23,9 +24,10 @@ int main(int argc,char **argv)
     QString a="example of string in the",str1,str2,str3,str4,str5;
     string s1,s2;
     char s3[]="arrays of characters";
-    int n;
+    int n,v0,v1,digits=0,letters=0,spaces=0,puncts=0;
     double h;
     QStringRef suba;
+    QFile file;
 
     /* First, we check whether all is ok! */
     cout<<endl<<"\tEXAMPLE '"<<string(argv[0])<<"'"<<endl<<endl;
@@ -118,7 +120,104 @@ int main(int argc,char **argv)
     suba=QStringRef(&a,0,8);
     out<<"\tSubstring, formed by first 8 characters (see the 'QStringRef' class): '"<<suba.toString()<<"'"<<endl<<endl;
 
+    /* Seventh test: looping on characters of strings! */
+    out<<"\tCurrent string: '"<<a<<"'"<<endl;
+    out<<"\tEnumerating its characters (with 'foreach'): ";
+    foreach (QChar qc, a) { out <<"'"<< qc <<"'"<<" "; }
+    out<<endl<<"\tEnumerating its characters (with 'C++-like' iterators): ";
+    for (QChar *it=a.begin(); it!=a.end(); ++it) { out <<"'"<< (*it) <<"'"<<" "; }
+    out<<endl<<"\tEnumerating its characters (with indices): ";
+    for(unsigned int i=0;i<a.size();i++) { out <<"'"<< a.at(i) <<"'"<<" "; }
+    out<<endl<<endl;
+
+    /* Eighth test: comparing strings! */
+    str1 = QString("Rainfall");
+    str2 = QString("rainfall");
+    str3 = QString("rainfall\n");
+    out<<"\tFirst string 's0' to be compared: '"<<str1<<"'"<<endl;
+    out<<"\tSecond string 's1' to be compared: '"<<str2<<"'"<<endl;
+    out<<"\tThird string 's2' to be compared (with EOL): '"<<str3<<"'"<<endl;
+    if(QString::compare(str1,str2)==0) out<<"\tStrings 's0' and 's1' coincide (with respect to case sensitive comparisons)"<<endl;
+    else out<<"\tStrings 's0' and 's1' do not coincide (with respect to case sensitive comparisons)"<<endl;
+    if(QString::compare(str1,str2,Qt::CaseInsensitive)==0) out<<"\tStrings 's0' and 's1' coincide (with respect to case insensitive comparisons)"<<endl;
+    else out<<"\tStrings 's0' and 's1' do not coincide (with respect to case insensitive comparisons)"<<endl;
+    if(QString::compare(str2,str3)==0) out<<"\tStrings 's1' and 's2' coincide (with respect to case sensitive comparisons)"<<endl;
+    else out<<"\tStrings 's1' and 's2' do not coincide (with respect to case sensitive comparisons)"<<endl;
+    if(QString::compare(str2,str3,Qt::CaseInsensitive)==0) out<<"\tStrings 's1' and 's2' coincide (with respect to case insensitive comparisons)"<<endl<<endl;
+    else out<<"\tStrings 's1' and 's2' do not coincide (with respect to case insensitive comparisons)"<<endl<<endl;
+    out<<"\tRemoving EOL from string 's2' ... ";
+    str3.chop(1);
+    out<<"ok. Resulting string: '"<<str3<<"'"<<endl;
+    if(QString::compare(str2,str3)==0) out<<"\tStrings 's1' and 's2' coincide (with respect to case sensitive comparisons)"<<endl;
+    else out<<"\tStrings 's1' and 's2' do not coincide (with respect to case sensitive comparisons)"<<endl;
+    if(QString::compare(str2,str3,Qt::CaseInsensitive)==0) out<<"\tStrings 's1' and 's2' coincide (with respect to case insensitive comparisons)"<<endl<<endl;
+    else out<<"\tStrings 's1' and 's2' do not coincide (with respect to case insensitive comparisons)"<<endl<<endl;
+
+    /* Ninth test: converting string as 'int' and 'double' value! */
+    str1=QString("25");
+    str2=QString("10");
+    out<<"\tString 's0': '"<<str1<<"'"<<endl;
+    out<<"\tString 's1': '"<<str2<<"'"<<endl;
+    v0=str1.toInt();
+    v1=str2.toInt();
+    out<<"\tString 's0', converted as 'int': "<<v0<<endl;
+    out<<"\tString 's1', converted as 'int': "<<v1<<endl;
+    out<<"\tSum of these 'int' values: "<<(v0+v1)<<endl;
+    str3.setNum(v0);
+    a.setNum(v1);
+    out<<"\tConversion back to string '"<<str3<<"'"<<endl;
+    out<<"\tConversion back to string '"<<a<<"'"<<endl;
+    out<<"\tConcatenating these two strings: '"<<(str3+a)<<"'"<<endl<<endl;
+
+    /* Tenth test: classifying characters in a string! */
+    a="We have 8 apples, 6 oranges, and 8 lemons";
+    out<<"\tCurrent string: '"<<a<<"'"<<endl;
+    foreach(QChar c,a)
+    {
+        if(c.isDigit()) { digits++; }
+        else if(c.isLetter()) { letters++; }
+        else if(c.isSpace()) { spaces++; }
+        else if (c.isPunct()) { puncts++; }
+    }
+
+    out << QString("\tTotal number of characters: %1").arg(a.count()) << endl;
+    out << QString("\tTotal number of digits: %1").arg(digits) << endl;
+    out << QString("\tTotal number of spaces: %1").arg(spaces) << endl;
+    out << QString("\tTotal number of punctuation characters: %1").arg(puncts) << endl;
+    out << QString("\tTotal number of letters: %1").arg(letters) << endl<<endl;
+
+    /* Eleventh test: converting a plain text string to an HTML string with HTML metacharacters <, >, &, and " replaced by HTML named entities */
+    out<<"\tOpen auxiliary file 'cprog.c', containing HTML metacharacters <, >, &, ... ";
+    file.setFileName("cprog.c");
+    if (!file.open(QIODevice::ReadOnly))
+    {
+        qWarning("\tCannot open file 'cprog.c' for reading");
+        return EXIT_FAILURE;
+    }
+    else
+    {
+        out<<"ok"<<endl<<"\tContent:"<<endl<<endl;
+
+        QTextStream in(&file);
+        QString allText = in.readAll();
+
+        out<<allText<<"\tReplacing HTML metacharacters with HTML named entities ... ";
+        str3=allText.toHtmlEscaped();
+        out<<"ok. Result: "<<endl<<endl<<str3;
+        file.close();
+    }
+
+    /* Twelveth test: align strings to the left! */
+    a="Name: ";
+    str1="Degree: ";
+    str2="Interests: ";
+    str3="Residence: ";
+    str4="Job: ";
+    n=str3.size();
+    out<<"\t"<<a.leftJustified(n,' ')<<"David Canino"<<endl;
+    out<<"\t"<<str1.leftJustified(n,' ')<<"Computer Science, Programming"<<endl;
+    out<<"\t"<<str2.leftJustified(n,' ')<<"Noli (SV), Italy"<<endl;
+    out<<"\t"<<str3.leftJustified(n,' ')<<"Looking for a new job"<<endl<<endl;
 
     return EXIT_SUCCESS;
 }
-
