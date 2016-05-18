@@ -4,7 +4,7 @@
 # Basic examples for the QT Library
 # Github: https://github.com/davidcanino/QT_examples.git
 #
-# This is QT Project file the basic example for checking correctness of the current QT Library (Example_0001)
+# This is the basic example for checking correctness of the current QT Library. No parameter is required (Example0001)
 #
 # Last update: May 2016 - Example_0001.pro
 #########################################################################################################################
