@@ -64,6 +64,8 @@ int main(int argc,char **argv)
     if(mw==QSysInfo::WV_None) { cout<<"\tLocation for QT settings: "<<QLibraryInfo::location(QLibraryInfo::QLibraryInfo::SettingsPath).toStdString()<<endl; }
     cout<<endl;
     cout.flush();
+    cout<<"\tPress the RETURN key to continue"<<endl;
+    getchar();
 
     /* Now, we analyze which platform we are using! */
     cout<<"\tINFORMATION regarding the current platform"<<endl;
@@ -227,6 +229,8 @@ int main(int argc,char **argv)
 
     cout<<"\tCurrent machine's host name: "<<QSysInfo::machineHostName().toStdString()<<endl<<endl;
     cout.flush();
+    cout<<"\tPress the RETURN key to continue"<<endl;
+    getchar();
 
     cout<<"\tINFORMATION regarding the current operating system"<<endl;
     cout<<"\t========================================================================================================================="<<endl<<endl;
