@@ -58,6 +58,8 @@ int main(int argc,char **argv)
     wd=cd.dayOfWeek();
     out << "\tDay of a week for the current date (short version): "<<QDate::shortDayName(wd)<<endl;
     out << "\tDay of a week for the current date (long version): "<<QDate::longDayName(wd)<<endl<<endl;
+    out<<"\tPress the RETURN key to continue"<<endl;
+    getchar();
 
     /* Test #2 - setting dates. */
     dt1.setDate(1776,7,4);
@@ -75,6 +77,8 @@ int main(int argc,char **argv)
     wd=dt1.dayOfWeek();
     out << "\tDay of a week for this date (short version): "<<QDate::shortDayName(wd)<<endl;
     out << "\tDay of a week for this date (long version): "<<QDate::longDayName(wd)<<endl<<endl;
+    out<<"\tPress the RETURN key to continue"<<endl;
+    getchar();
 
     /* Test #3 - comparing dates! */
     dt1.setDate(2015,4,5);
@@ -83,15 +87,20 @@ int main(int argc,char **argv)
     out<<"\tSecond date to be compared: "<<dt2.toString(Qt::ISODate)<<endl;
     if (dt1 < dt2) { out << "\tDate '"<<dt1.toString(Qt::ISODate) <<"'' comes before '"<< dt2.toString(Qt::ISODate) <<"'"<<endl<<endl; }
     else { out <<"\tDate '"<<dt1.toString(Qt::ISODate) <<"'' comes after '"<< dt2.toString(Qt::ISODate) <<"'"<<endl<<endl; }
+    out<<"\tPress the RETURN key to continue"<<endl;
+    getchar();
 
     /* Test #4 - finding leap years! */
     foreach (int year, years)
     {
-        if (QDate::isLeapYear(year)) { out <<"\tyear "<<year <<" was a leap year" << endl; }
-        else { out <<"\tyear "<<year<<" was not a leap year" << endl; }
+        if (QDate::isLeapYear(year)) { out <<"\tyear "<<year <<" was a leap year" << endl<<endl; }
+        else { out <<"\tyear "<<year<<" was not a leap year" << endl<<endl; }
     }
 
     /* Test #5 - number of days in months */
+    out<<"\tPress the RETURN key to continue";
+    out.flush();
+    getchar();
     months.append("January");
     months.append("February");
     months.append("March");
@@ -118,27 +127,36 @@ int main(int argc,char **argv)
     }
 
     /* Test #6 - checking valid dates! */
-    out<<endl<<endl<<"\tYear "<<dt1.year()<<" had "<<dt1.daysInYear()<<" days"<<endl;
+    out<<endl<<endl;
+    out<<"\tPress the RETURN key to continue"<<endl;
+    out.flush();
+    getchar();
+    out<<"\tYear "<<dt1.year()<<" had "<<dt1.daysInYear()<<" days"<<endl;
     m=0;
     foreach(QDate d,dates)
     {
-        if(d.isValid()) out<<endl<<"\tDate '"<<d.toString()<<"' (in position "<<m<<") is valid";
-        else out<<endl<<"\tDate '"<<d.toString()<<"' (in position "<<m<<") is not valid";
+        if(d.isValid()) out<<endl<<"\tDate '"<<d.toString()<<"' (in position "<<m<<") is valid"<<endl;
+        else out<<endl<<"\tDate '"<<d.toString()<<"' (in position "<<m<<") is not valid"<<endl;
         m=m+1;
     }
 
     /* Test #7 - adding days */
-    out<<cd.toString()<<endl;
+    out<<endl;
+    out<<"\tPress the RETURN key to continue"<<endl;
+    out.flush();
+    getchar();
     xmas.setDate(cd.year(),12,25);
-    out<<endl<<"\tCurrent date is: "<<cd.toString();
+    out<<"\tCurrent date is: "<<cd.toString();
     out<<endl<<"\tThere are "<<cd.daysTo(xmas)<<" days to Christmas: "<<xmas.toString()<<endl;
     out<<"\tIn fact, the resulting date, after adding "<<cd.daysTo(xmas)<<" days, is: ";
     dt1=cd.addDays(cd.daysTo(xmas));
-    out<<dt1.toString()<<endl;
+    out<<dt1.toString()<<endl<<endl;
+    out<<"\tPress the RETURN key to continue"<<endl;
+    getchar();
 
     /* Test #8 - analyzing the current time! */
     ct=QTime::currentTime();
-    out <<endl<<"\tThe current time (in default format) is: " << ct.toString();
+    out <<"\tThe current time (in default format) is: " << ct.toString();
     out <<endl<<"\tThe current time (wrt the ISO 8601 format) is: " << ct.toString(Qt::ISODate);
     out <<endl<<"\tThe current time (wrt locale settings of the current OS, long version) is: " << ct.toString(Qt::SystemLocaleLongDate);
     out <<endl<<"\tThe current time (wrt locale settings of the current OS, short version) is: " << ct.toString(Qt::SystemLocaleShortDate);
@@ -148,6 +166,8 @@ int main(int argc,char **argv)
     out <<endl<<"\tThe current time (wrt custom format 'h:m:s a') is: " << ct.toString("h:m:s a");
     out <<endl<<"\tThe current time (wrt custom format 'H:m:s A') is: " << ct.toString("H:m:s A");
     out <<endl<<"\tThe current time (wrt custom format 'h:m AP') is: " << ct.toString("h:m AP")<<endl<<endl;
+    out<<"\tPress the RETURN key to continue"<<endl;
+    getchar();
 
     /* Test #9 - setting of custom times! */
     out << "\tCustom example of time (in default format): "<<tm1.toString()<<endl;
@@ -156,6 +176,8 @@ int main(int argc,char **argv)
     out << "\tCustom example of time (wrt custom format 'hh:mm:ss.zzz') is: " << tm1.toString("hh:mm:ss.zzz") << endl;
     tm2.setHMS(13, 52, 45, 155);
     out << "\tAnother example of time (wrt custom format 'hh:mm:ss.zzz') is: " << tm2.toString("hh:mm:ss.zzz") << endl<<endl;
+    out<<"\tPress the RETURN key to continue"<<endl;
+    getchar();
 
     /* Test #10 - manipulating QDateTime */
     cdt = QDateTime::currentDateTime();
@@ -169,6 +191,8 @@ int main(int argc,char **argv)
     out<<"\tThe Julian day (wrt Julian period) for the Independence Day "<<dt2.toString()<<": "<<dt2.toJulianDay()<<endl;
     out<<"\t#Days since the D-Day: "<<(cdt.date().toJulianDay()-dt2.toJulianDay())<<endl;
     out<<"\t#Days between the D-Day and the Independence Day: "<<(dt1.toJulianDay()-dt2.toJulianDay())<<endl<<endl;
+    out<<"\tPress the RETURN key to continue"<<endl;
+    getchar();
 
     /* Test #11 - UTC time and Unix-time */
     out<<"\tThe current time is: "<<cdt.time().toString()<<endl;
