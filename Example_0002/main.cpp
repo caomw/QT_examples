@@ -50,6 +50,8 @@ int main(int argc,char **argv)
     out<<"\ttoUpper version: '"<<a.toUpper()<<"'"<<endl;
     out<<"\ttoLower version: '"<<a.toLower()<<"'"<<endl;
     out<<"\tCurrent string: '"<<a<<"'"<<endl<<endl;
+    out<<"\tPress the RETURN key to continue"<<endl;
+    getchar();
 
     /* Second test: initialization methods! */
     str1 = "direct initialization";
@@ -64,6 +66,8 @@ int main(int argc,char **argv)
     out<<"\tFourth initialization method: '"<<str4<<"'"<<endl;
     str5=QString(s3);
     out<<"\tFifth initialization method: '"<<str5<<"'"<<endl<<endl;
+    out<<"\tPress the RETURN key to continue"<<endl;
+    getchar();
 
     /* Third test: accessing string elements! */
     a="example of string";
@@ -75,6 +79,8 @@ int main(int argc,char **argv)
     out<<"ok"<<endl;
     out<<"\tNew character in position 0: '"<<a[0]<<"'"<<endl;
     out<<"\tNew string: '"<<a<<"'"<<endl<<endl;
+    out<<"\tPress the RETURN key to continue"<<endl;
+    getchar();
 
     /* Fourth test: retrieving number of elements! */
     str1 = "Eagle";
@@ -97,6 +103,8 @@ int main(int argc,char **argv)
     out<<"\tNumber of elements (see the 'QString::length()' member function): "<<str4.length()<<endl;
     out<<"\tNumber of elements (see the 'QString::size()' member function): "<<str4.size()<<endl;
     out<<"\tNumber of elements (see the 'QString::count()' member function): "<<str4.count()<<endl<<endl;
+    out<<"\tPress the RETURN key to continue"<<endl;
+    getchar();
 
     /* Fifth test: replacing specific control characters! */
     str1="Example for replacing specific control characters - here, we have %1 control character to be replaced";
@@ -110,6 +118,8 @@ int main(int argc,char **argv)
     str3="There are at least %1 interesting constant values in mathematics, namely e=%2 and pi=%3";
     out<<"\tGeneric pattern #3: '"<<str3<<"'"<<endl;
     out<<"\tAfter replacing control characters: '"<<str3.arg(2).arg(2.78).arg(3.14)<<"'"<<endl<<endl;
+    out<<"\tPress the RETURN key to continue"<<endl;
+    getchar();
 
     /* Sixth test: manipulating substrings! */
     a.append(" in the QT Library");
@@ -119,6 +129,8 @@ int main(int argc,char **argv)
     out<<"\tSubstring, formed by 7 characters (starting from position 10, see the 'QString::mid()' member function): '"<<a.mid(7,10)<<"'"<<endl;
     suba=QStringRef(&a,0,8);
     out<<"\tSubstring, formed by first 8 characters (see the 'QStringRef' class): '"<<suba.toString()<<"'"<<endl<<endl;
+    out<<"\tPress the RETURN key to continue"<<endl;
+    getchar();
 
     /* Seventh test: looping on characters of strings! */
     out<<"\tCurrent string: '"<<a<<"'"<<endl;
@@ -129,6 +141,8 @@ int main(int argc,char **argv)
     out<<endl<<"\tEnumerating its characters (with indices): ";
     for(unsigned int i=0;i<a.size();i++) { out <<"'"<< a.at(i) <<"'"<<" "; }
     out<<endl<<endl;
+    out<<"\tPress the RETURN key to continue"<<endl;
+    getchar();
 
     /* Eighth test: comparing strings! */
     str1 = QString("Rainfall");
@@ -152,6 +166,8 @@ int main(int argc,char **argv)
     else out<<"\tStrings 's1' and 's2' do not coincide (with respect to case sensitive comparisons)"<<endl;
     if(QString::compare(str2,str3,Qt::CaseInsensitive)==0) out<<"\tStrings 's1' and 's2' coincide (with respect to case insensitive comparisons)"<<endl<<endl;
     else out<<"\tStrings 's1' and 's2' do not coincide (with respect to case insensitive comparisons)"<<endl<<endl;
+    out<<"\tPress the RETURN key to continue"<<endl;
+    getchar();
 
     /* Ninth test: converting string as 'int' and 'double' value! */
     str1=QString("25");
@@ -168,6 +184,8 @@ int main(int argc,char **argv)
     out<<"\tConversion back to string '"<<str3<<"'"<<endl;
     out<<"\tConversion back to string '"<<a<<"'"<<endl;
     out<<"\tConcatenating these two strings: '"<<(str3+a)<<"'"<<endl<<endl;
+    out<<"\tPress the RETURN key to continue"<<endl;
+    getchar();
 
     /* Tenth test: classifying characters in a string! */
     a="We have 8 apples, 6 oranges, and 8 lemons";
@@ -185,6 +203,8 @@ int main(int argc,char **argv)
     out << QString("\tTotal number of spaces: %1").arg(spaces) << endl;
     out << QString("\tTotal number of punctuation characters: %1").arg(puncts) << endl;
     out << QString("\tTotal number of letters: %1").arg(letters) << endl<<endl;
+    out<<"\tPress the RETURN key to continue"<<endl;
+    getchar();
 
     /* Eleventh test: converting a plain text string to an HTML string with HTML metacharacters <, >, &, and " replaced by HTML named entities */
     out<<"\tOpen auxiliary file 'cprog.c', containing HTML metacharacters <, >, &, ... ";
@@ -208,6 +228,8 @@ int main(int argc,char **argv)
     }
 
     /* Twelveth test: align strings to the left! */
+    out<<"\tPress the RETURN key to continue"<<endl;
+    getchar();
     a="Name: ";
     str1="Degree: ";
     str2="Interests: ";
@@ -218,6 +240,5 @@ int main(int argc,char **argv)
     out<<"\t"<<str1.leftJustified(n,' ')<<"Computer Science, Programming"<<endl;
     out<<"\t"<<str2.leftJustified(n,' ')<<"Noli (SV), Italy"<<endl;
     out<<"\t"<<str3.leftJustified(n,' ')<<"Looking for a new job"<<endl<<endl;
-
     return EXIT_SUCCESS;
 }
