@@ -13,6 +13,9 @@
 #include<iostream>
 #include <QVector>
 #include <QTextStream>
+#include <QList>
+#include <algorithm>
+#include <QString>
 using namespace std;
 
 /* No parameter is required! */
@@ -21,6 +24,7 @@ int main(int argc,char **argv)
     QTextStream out(stdout);
     QVector<int> vals = {1, 2, 3, 4, 5};
     int pos;
+    QList<QString> authors = {"Torvalds","Harrison","Minsky","Brown","Lovecraft"};
 
     /* First, we check whether all is ok! */
     cout<<endl<<"\tEXAMPLE '"<<string(argv[0])<<"'"<<endl<<endl;
@@ -117,9 +121,61 @@ int main(int argc,char **argv)
     out<<"\tPress the RETURN key to continue"<<endl;
     getchar();
 
-    /************************************** END FOR TESTING 'QVector' **********************************************************/
+    /************************************** END FOR TESTING for 'QVector' **********************************************************/
+
+    /************************************** START TESTING for 'QList' **************************************************************/
+
+    out<<"\tThe current 'QList'' is initialized"<<endl;
+    out<<"\tNumber of values in the current 'QList': "<<authors.size()<<endl;
+    out<<"\tFirst value in the current 'QList': '"<<authors.first()<<"'"<<endl;
+    out<<"\tLast value in the current 'QList': "<<authors.last()<<"'"<<endl;
+    out<<"\tValues in the current 'QList':"<<endl<<endl;
+    for(int i=0;i<authors.count();i++) out<<"\t\t'"<<authors.at(i)<<"'"<<endl;
+    out<<endl;
+    out<<"\tAppending a new value to the current 'QList' ... ";
+    authors.append("Asimov");
+    out<<"ok"<<endl;
+    out<<"\tPrepending a new value to the current 'QList' ... ";
+    authors.prepend("Kishimoto");
+    out<<"ok"<<endl;
+    out<<"\tNumber of values in the current 'QList': "<<authors.size()<<endl;
+    out<<"\tSorting values in the current 'QList' ... ";
+    std::sort(authors.begin(),authors.end());
+    out<<"ok"<<endl;
+    out<<"\tNumber of values in the current 'QList': "<<authors.size()<<endl;
+    out<<"\tValues in the current 'QList':"<<endl<<endl;
+    foreach(QString s,authors) out<<"\t\t'"<<s<<"'"<<endl;
+    out<<endl;
+    out<<"\tConcatenating another value to the current 'QList' ... ";
+    authors<<"Hardy";
+    out<<"ok"<<endl;
+    out<<"\tNumber of values in the current 'QList': "<<authors.size()<<endl;
+    out<<"\tValues in the current 'QList' (in reverse order):"<<endl<<endl;
+    for(QList<QString>::reverse_iterator it=authors.rbegin();it!=authors.rend();it++) out<<"\t\t'"<<(*it)<<"'"<<endl;
+    out<<endl;
+    out<<"\tRemoving value '"<<authors.at(4)<<"', stored in position 4 ... ";
+    authors.removeAt(4);
+    out<<"ok"<<endl;
+    out<<"\tNumber of values in the current 'QList': "<<authors.size()<<endl;
+    out<<"\tRemoving the first value '"<<authors.takeFirst()<<"' ... ok"<<endl;
+    out<<"\tNumber of values in the current 'QList': "<<authors.size()<<endl;
+    out<<"\tRemoving the last value '"<<authors.takeLast()<<"' ... ok"<<endl;
+    out<<"\tNumber of values in the current 'QList': "<<authors.size()<<endl<<endl;
+    Q_FOREACH(QString s,authors) out<<"\t\t'"<<s<<"'"<<endl;
+    out<<endl;
+    out<<"\tHashing value for the current 'QList': "<<qHash(authors)<<endl<<endl;
+    out<<"\tRemoving all values from the current 'QList' ... ";
+    authors.clear();
+    out<<"ok. ";
+    if(authors.empty()) out<<"The current 'QList' is empty"<<endl<<endl;
+    else out<<"The current 'QList' is not empty"<<endl<<endl;
+    out<<"\tPress the RETURN key to continue"<<endl;
+    getchar();
+
+    /************************************** END TESTING for 'QList' ****************************************************************/
 
     /* If we arrive here, we can deallocate everything! */
     vals.clear();
+    authors.clear();
     return EXIT_SUCCESS;
 }
