@@ -17,6 +17,8 @@
 #include <algorithm>
 #include <QString>
 #include <QStringList>
+#include <QSet>
+#include <QMap>
 using namespace std;
 
 /* No parameter is required! */
@@ -28,6 +30,7 @@ int main(int argc,char **argv)
     QList<QString> authors = {"Torvalds","Harrison","Minsky","Brown","Lovecraft"};
     QStringList fonts,res;
     QString ss;
+    QList<int> aux;
 
     /* First, we check whether all is ok! */
     cout<<endl<<"\tEXAMPLE '"<<string(argv[0])<<"'"<<endl<<endl;
@@ -228,11 +231,180 @@ int main(int argc,char **argv)
     getchar();
 
     /************************************** END TESTING for 'QStringList' **********************************************************/
+
+    /************************************** TESTING 'QSet' *************************************************************************/
+
+    QSet<QString> qss,qss1,qss2;
+
+    out<<"\tAdding several element to the current 'QSet' ... ";
+    qss.insert("one");
+    qss.insert("three");
+    qss.insert("seven");
+    qss << "twelve" << "fifteen" << "nineteen";
+    out<<"ok. Found not sorted "<<qss.size()<<" elements:"<<endl<<endl;
+    foreach (const QString &v, qss) out<<"\t\t'"<<v<<"'"<<endl;
+    out<<endl;
+    authors.clear();
+    authors=qss.values();
+    std::sort(authors.begin(),authors.end());
+    out<<"\tFound sorted "<<authors.size()<<" elements"<<endl<<endl;
+    for(QList<QString>::iterator it=authors.begin();it!=authors.end();it++) out<<"\t\t'"<<(*it)<<"'"<<endl;
+    out<<endl;
+    authors.clear();
+    qss.clear();
+    out<<"\tInitializing two 'QSet' objects ... ";
+    qss1={"yellow", "red", "blue"};
+    qss1.insert("brown");
+    qss2={"blue", "pink", "orange"};
+    out<<"ok"<<endl<<endl;
+    out<<"\tFound "<<qss1.count()<<" elements in the first 'QSet' object: "<<endl<<endl;
+    for(QSet<QString>::iterator it=qss1.begin();it!=qss1.end();it++) out<<"\t\t'"<<(*it)<<"'"<<endl;
+    out<<endl;
+    if(qss1.contains("brown")==true) out<<"\tThe first 'QSet' object contains the element 'brown'"<<endl;
+    else out<<"\tThe first 'QSet' object does not contain the element 'brown'"<<endl;
+    out<<endl<<"\tFound "<<qss2.count()<<" elements in the second 'QSet' object: "<<endl<<endl;
+    for(QSet<QString>::iterator it=qss2.begin();it!=qss2.end();it++) out<<"\t\t'"<<(*it)<<"'"<<endl;
+    qss=QSet<QString>::fromList(qss1.values());
+    if(qss2.contains("brown")==true) out<<endl<<"\tThe second 'QSet' object contains the element 'brown'"<<endl;
+    else out<<endl<<"\tThe second 'QSet' object does not contain the element 'brown'"<<endl;
+    out<<endl<<"\tComputing the intersection of two 'QSet' objects ... ";
+    qss.intersect(qss2);
+    out<<"ok. Found ";
+    if(qss.count()==0) out<<" no common element"<<endl<<endl;
+    else
+    {
+        if(qss.size()==1) out<<"only one common element:"<<endl<<endl;
+        else out<<"\t"<<qss.size()<<" common elements:"<<endl<<endl;
+        for(QSet<QString>::iterator it=qss.begin();it!=qss.end();it++) out<<"\t\t'"<<(*it)<<"'"<<endl;
+        out<<endl;
+    }
+
+    qss=QSet<QString>::fromList(qss1.values());
+    out<<"\tComputing the union of two 'QSet' objects ... ";
+    qss.unite(qss2);
+    out<<"ok. Found ";
+    if(qss.count()==0) out<<" no common element"<<endl<<endl;
+    else
+    {
+        if(qss.size()==1) out<<"only one common element:"<<endl<<endl;
+        else out<<qss.size()<<" common elements:"<<endl<<endl;
+        for(QSet<QString>::iterator it=qss.begin();it!=qss.end();it++) out<<"\t\t'"<<(*it)<<"'"<<endl;
+        out<<endl;
+    }
+
+    if(qss1.remove("red")==true) out<<"\tRemoved element 'red' correctly from the first 'QSet' object"<<endl<<endl;
+    else out<<"\tImpossible to remove element 'red' from the first 'QSet' object"<<endl<<endl;
+    if(qss2.remove("red")==true) out<<"\tRemoved element 'red' correctly from the second 'QSet' object"<<endl<<endl;
+    else out<<"\tImpossible to remove element 'red' from the second 'QSet' object"<<endl<<endl;
+    out<<"\tPress the RETURN key to continue"<<endl;
+    getchar();
+
+    /************************************** END TESTING 'QSet' *********************************************************************/
+
+    /************************************** TESTING 'QMap' ************************************************************************/
+
+    QMap<QString, int> map;
+    QMap<QString, int>::const_iterator i;
+
+    map["one"] = 1;
+    map["three"] = 3;
+    map["seven"] = 7;
+    map.insert("twelve", 12);
+    out<<"\tCreated new 'QMap' object with "<<map.size()<<" associations: "<<endl<<endl;
+    i = map.constBegin();
+    while(i != map.constEnd())
+    {
+        out<<"\t\tassociation '"<<i.key()<<"'' <-> "<<i.value()<<endl;
+        ++i;
+    }
+
+    out<<endl<<"\tLooking up for a not existing association (with modifying operator []) in the current 'QMap' object ... ";
+    pos = map["five"];
+    out<<"ok. Found "<<map.size()<<" associations in the current 'QMap' object."<<endl;
+    out<<"\tCreated new association in the current 'QMap' object, involving the key 'five' and the default value "<<pos<<endl<<endl;
+    i = map.constBegin();
+    while(i != map.constEnd())
+    {
+        out<<"\t\tassociation '"<<i.key()<<"' <-> "<<i.value()<<endl;
+        ++i;
+    }
+
+    out<<endl<<"\tLooking up for a not existing association (with not modifying function) in the current 'QMap' object ... ";
+    pos=map.value("thirty");
+    out<<"ok. Found still "<<map.size()<<" associations in the current 'QMap' object."<<endl<<endl;
+    out<<"\tAdding two associations, involving the same key 'plenty' (without support for multiple associations), in the current 'QMap' object ... ";
+    map.insert("plenty", 100);
+    map.insert("plenty", 2000);
+    aux.clear();
+    aux=map.values("plenty");
+    out<<"ok. Found ";
+    if(aux.size()==0) { out<<" no association, involving the key 'plenty' in the current 'QMap' object"<<endl<<endl; }
+    else
+    {
+        if(aux.size()==1) { out<<" only one association, involving the key 'plenty' in the current 'QMap' object:"<<endl<<endl; }
+        else { out<<aux.size()<<" associations, involving the key 'plenty':"<<endl<<endl; }
+        for(QList<int>::iterator aa=aux.begin();aa!=aux.end();aa++) { out<<"\t\tassociation 'plenty' <-> "<<(*aa)<<endl; }
+        out<<endl;
+    }
+
+    out<<"\tFound "<<map.size()<<" associations in the current 'QMap' object:"<<endl<<endl;
+    i = map.constBegin();
+    while(i != map.constEnd())
+    {
+        out<<"\t\tassociation '"<<i.key()<<"' <-> "<<i.value()<<endl;
+        ++i;
+    }
+
+    out<<endl<<"\tAdding two associations, involving the same key 'multi' (with support for multiple associations), in the current 'QMap' object ... ";
+    map.insertMulti("multi", 7);
+    map.insertMulti("multi", 5000);
+    aux.clear();
+    aux=map.values("multi");
+    out<<"ok. Found ";
+    if(aux.size()==0) { out<<" no association, involving the key 'multi' in the current 'QMap' object"<<endl<<endl; }
+    else
+    {
+        if(aux.size()==1) { out<<" only one association, involving the key 'multi':"<<endl<<endl; }
+        else { out<<aux.size()<<" associations, involving the key 'multi':"<<endl<<endl; }
+        for(QList<int>::iterator aa=aux.begin();aa!=aux.end();aa++) { out<<"\t\tassociation 'multi' <-> "<<(*aa)<<endl; }
+        out<<endl;
+    }
+
+    out<<"\tFound "<<map.size()<<" associations and ";
+    authors.clear();
+    authors=map.uniqueKeys();
+    out<<authors.size()<<" unique keys in the current 'QMap' object"<<endl<<endl;
+    for(QList<QString>::iterator kk=authors.begin();kk!=authors.end();kk++)
+    {
+        aux.clear();
+        aux=map.values(*kk);
+        out<<"\t\tThe key '"<<(*kk)<<"' is involved by ";
+        if(aux.size()==0) { out<<" no association"<<endl<<endl; }
+        else
+        {
+            if(aux.size()==1) { out<<" only one association '"<<*kk<<"' <-> "<<aux.first()<<endl<<endl; }
+            else
+            {
+                out<<aux.size()<<" associations"<<endl<<endl;
+                for(QList<int>::iterator aa=aux.begin();aa!=aux.end();aa++) { out<<"\t\t\tassociation '"<<*kk<<"' <-> "<<(*aa)<<endl; }
+                out<<endl;
+            }
+        }
+    }
+
+    out<<"\tRemoving all associations, involving the key 'multi', in the current 'QMap' object ... ";
+    map.remove("multi");
+    out<<"ok"<<endl<<"\tFound "<<map.size()<<" associations in the current 'QMap' object"<<endl<<endl;
+
     /* If we arrive here, we can deallocate everything! */
     vals.clear();
     authors.clear();
     fonts.clear();
     res.clear();
     ss.clear();
+    qss.clear();
+    qss1.clear();
+    qss2.clear();
+    map.clear();
     return EXIT_SUCCESS;
 }
