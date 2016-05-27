@@ -4,7 +4,7 @@
  * Basic examples for the QT Library
  * Github: https://github.com/davidcanino/QT_examples.git
  *
- * This is the basic example for manipulating date and time in the current QT Library. No parameter is required.
+ * This is the basic example for manipulating several containers in the current QT Library. No parameter is required.
  *
  * Last update: May 2016
  *************************************************************************************************************************/
