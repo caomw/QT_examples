@@ -16,6 +16,7 @@
 #include <QList>
 #include <algorithm>
 #include <QString>
+#include <QStringList>
 using namespace std;
 
 /* No parameter is required! */
@@ -25,6 +26,8 @@ int main(int argc,char **argv)
     QVector<int> vals = {1, 2, 3, 4, 5};
     int pos;
     QList<QString> authors = {"Torvalds","Harrison","Minsky","Brown","Lovecraft"};
+    QStringList fonts,res;
+    QString ss;
 
     /* First, we check whether all is ok! */
     cout<<endl<<"\tEXAMPLE '"<<string(argv[0])<<"'"<<endl<<endl;
@@ -174,8 +177,62 @@ int main(int argc,char **argv)
 
     /************************************** END TESTING for 'QList' ****************************************************************/
 
+    /************************************** TESTING 'QStringList '******************************************************************/
+    fonts << "Arial" << "Helvetica" << "Times" << "Courier";
+    fonts.append("Courier New");
+    out<<"\tThe current 'QStringList' is initialized"<<endl<<endl;
+    for (int i = 0; i < fonts.size(); ++i) { out << "\t\t'"<<fonts.at(i).toLocal8Bit().constData() << "'"<<endl; }
+    out<<endl;
+    out<<"\tJoining all strings into a unique string ... ";
+    ss = fonts.join(", ");
+    out<<"ok"<<endl;
+    out<<"\tUnique string: '"<<ss<<"'"<<endl<<endl;
+    out<<"\tClearing the current 'QStringList' ... ";
+    fonts.clear();
+    out<<"ok"<<endl;
+    if(fonts.isEmpty()) out<<"\tThe current 'QStringList' is empty"<<endl;
+    else out<<"\tThe current 'QStringList' is not empty"<<endl<<endl;
+    out<<"\tSplitting the unique string into a collection of substrings ... ";
+    fonts = ss.split(',', QString::SkipEmptyParts);
+    out<<"ok. Found "<<fonts.size()<<" substrings."<<endl<<endl;
+    for(QStringList::const_iterator it=fonts.constBegin();it!=fonts.constEnd();it++) { out<<"\t\t'"<<(it->trimmed())<<"'"<<endl; }
+    out<<endl;
+    out<<"\tLooking for strings, containing either the 'Courier' string or the 'Fixed' string ... ";
+    res=fonts.filter(QRegExp("Courier|Fixed"));
+    out<<"ok. Found ";
+    if(res.count()==0) out<<"no result."<<endl<<endl;
+    else
+    {
+        QStringListIterator it(res);
+
+        if(res.length()==1) out<<"only one result:"<<endl<<endl;
+        else out<<res.size()<<" results:"<<endl<<endl;
+        while(it.hasNext()) { out<<"\t\t'"<<it.next().trimmed()<<"'"<<endl; }
+        out<<endl;
+    }
+
+    out<<"\tCreating a collection of strings (paths) to be completed ... ";
+    res.clear();
+    res<< "$QTDIR/src/moc/moc.y"<< "$QTDIR/src/moc/moc.l"<< "$QTDIR/include/qconfig.h";
+    out<<"ok"<<endl<<endl;
+
+    QStringListIterator it(res);
+
+    while(it.hasNext()) { out<<"\t\t'"<<it.next().trimmed()<<"'"<<endl; }
+    out<<endl<<"\tReplacing $QTDIR as '/usr/lib/qt' .. ";
+    res.replaceInStrings("$QTDIR", "/usr/lib/qt");
+    out<<"ok"<<endl<<endl;
+    for(QStringList::const_iterator it=res.constBegin();it!=res.constEnd();it++) { out<<"\t\t'"<<(it->trimmed())<<"'"<<endl; }
+    out<<endl;
+    out<<"\tPress the RETURN key to continue"<<endl;
+    getchar();
+
+    /************************************** END TESTING for 'QStringList' **********************************************************/
     /* If we arrive here, we can deallocate everything! */
     vals.clear();
     authors.clear();
+    fonts.clear();
+    res.clear();
+    ss.clear();
     return EXIT_SUCCESS;
 }
