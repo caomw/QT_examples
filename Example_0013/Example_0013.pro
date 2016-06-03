@@ -1,18 +1,21 @@
-#-------------------------------------------------
+#########################################################################################################################
+# David Canino - canino.david@gmail.com
 #
-# Project created by QtCreator 2016-06-03T10:17:22
+# Basic examples for the QT Library
+# Github: https://github.com/davidcanino/QT_examples.git
 #
-#-------------------------------------------------
-
-QT       += core gui
-
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
-
+# Basic Example for the Menu. No parameter is required.
+#
+# Last update: June 2016 - Example_0013.pro
+#########################################################################################################################
+QT += core gui widgets
+CONFIG += c++11 debug_and_release app_bundle
 TARGET = Example_0013
 TEMPLATE = app
-
-
-SOURCES += main.cpp\
-        customwindow.cpp
-
+LANGUAGE = C++
+MOC_DIR = ./moc
+QMAKE_CXXFLAGS_RELEASE += -DNDEBUG -O3 -ansi -w -std=c++11
+QMAKE_CXXFLAGS_DEBUG += -ansi -w -std=c++11
+SOURCES += main.cpp customwidget.cpp
 HEADERS  += customwindow.h
+LIBS += -lm
