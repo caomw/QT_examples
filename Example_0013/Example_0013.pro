@@ -16,6 +16,6 @@ LANGUAGE = C++
 MOC_DIR = ./moc
 QMAKE_CXXFLAGS_RELEASE += -DNDEBUG -O3 -ansi -w -std=c++11
 QMAKE_CXXFLAGS_DEBUG += -ansi -w -std=c++11
-SOURCES += main.cpp customwidget.cpp
+SOURCES += main.cpp customwindow.cpp
 HEADERS  += customwindow.h
 LIBS += -lm
