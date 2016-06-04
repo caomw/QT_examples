@@ -77,7 +77,11 @@ CustomWindow::~CustomWindow()
 
 void CustomWindow::toggleStatusBar()
 {
-    if (this->tsb_action->isChecked()) { this->statusBar()->show(); }
+    if (this->tsb_action->isChecked())
+    {
+        this->statusBar()->showMessage("The status and the tool bars can be shown/hidden by the actions in the 'View' Menu");
+        this->statusBar()->show();
+    }
     else { this->statusBar()->hide(); }
 }
 
