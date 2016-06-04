@@ -19,6 +19,14 @@
         void quit_required();
 
         void qtinfo_required();
+
+        private slots:
+
+        void toggleStatusBar();
+
+        private:
+
+        QAction *tsb_action;
     };
 
 #endif
