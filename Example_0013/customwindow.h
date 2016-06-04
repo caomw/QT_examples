@@ -24,9 +24,15 @@
 
         void toggleStatusBar();
 
+        void toggleToolBar();
+
         private:
 
         QAction *tsb_action;
+
+        QAction *tb_action;
+
+        QToolBar *toolBar;
     };
 
 #endif
