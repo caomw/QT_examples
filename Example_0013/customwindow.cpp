@@ -6,6 +6,7 @@
 #include <QStatusBar>
 #include <QToolBar>
 #include <QIcon>
+#include <QLabel>
 
 CustomWindow::CustomWindow(QWidget *parent) : QMainWindow(parent)
 {
@@ -39,8 +40,9 @@ CustomWindow::CustomWindow(QWidget *parent) : QMainWindow(parent)
     connect(this->tsb_action,SIGNAL(triggered()),this,SLOT(toggleStatusBar()));
     this->tsb_action->setCheckable(true);
     this->tsb_action->setChecked(true);
+    this->statusBar()->insertPermanentWidget(0,new QLabel("The status and the tool bars can be shown/hidden by the actions in the 'View' Menu"),1);
     this->statusBar()->show();
-    this->statusBar()->showMessage("The status and the tool bars can be shown/hidden by the actions in the 'View' Menu",0);
+    //this->statusBar()->showMessage("The status and the tool bars can be shown/hidden by the actions in the 'View' Menu",0);
 
     /* Adding Menu 'Help' */
     help=this->menuBar()->addMenu("&Help");
@@ -79,7 +81,7 @@ void CustomWindow::toggleStatusBar()
 {
     if (this->tsb_action->isChecked())
     {
-        this->statusBar()->showMessage("The status and the tool bars can be shown/hidden by the actions in the 'View' Menu");
+        //this->statusBar()->showMessage("The status and the tool bars can be shown/hidden by the actions in the 'View' Menu");
         this->statusBar()->show();
     }
     else { this->statusBar()->hide(); }
