@@ -40,7 +40,7 @@ CustomWindow::CustomWindow(QWidget *parent) : QMainWindow(parent)
     this->tsb_action->setCheckable(true);
     this->tsb_action->setChecked(true);
     this->statusBar()->show();
-    this->statusBar()->showMessage("The status and the tool bars can be shown/hidden by the actions in the 'View' Menu");
+    this->statusBar()->showMessage("The status and the tool bars can be shown/hidden by the actions in the 'View' Menu",0);
 
     /* Adding Menu 'Help' */
     help=this->menuBar()->addMenu("&Help");
